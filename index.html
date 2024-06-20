@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task no. 20</title>
+    <style>
+        .bg {
+            background-color: black;
+            box-shadow: 2%;
+            box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+            -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+            padding: 2%;
+            width: 18%;
+            margin: auto;
+            border-radius: 10%;
+        }
+        #output {
+            width: 74%;
+            border: 2%;
+            border-color: rgb(255, 255, 255);
+            line-height: 500%;
+        }
+        #AC, #divide, #multiply, #subt, #power, #add, #five, #per, #six, #four, #nine, #eight, #seven, #one, #two, #three, #point, #zero, #equal {
+            color: white;
+            background-color: black;
+            padding: 5%;
+            box-shadow: 4px 3px 5px 0px rgba(184,184,184,0.76) inset;
+            -webkit-box-shadow: 4px 3px 5px 0px rgba(184,184,184,0.76) inset;
+            -moz-box-shadow: 4px 3px 5px 0px rgba(184,184,184,0.76) inset;
+        }
+        #divide, #multiply, #subt, #power, #add, #nine, #eight, #seven, #clear, #five, #six, #four, #equal, #per, #one, #two, #three, #point, #zero {
+            width: 18%;
+        }
+        #AC {
+            width: 18%;
+        }
+        #zero, #equal {
+            width: 38%;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <input type="number" id="output" readonly><br>
+        <button id="AC" value="AC">AC</button>
+        <button id="divide" class="operator" value="/">/</button>
+        <button id="multiply" class="operator" value="*">*</button>
+        <button id="subt" class="operator" value="-">-</button><br>
+        <button id="seven" class="btn" value="7">7</button>
+        <button id="eight" class="btn" value="8">8</button>
+        <button id="nine" class="btn" value="9">9</button>
+        <button id="add" class="operator" value="+">+</button><br>
+        <button id="four" class="btn" value="4">4</button>
+        <button id="five" class="btn" value="5">5</button>
+        <button id="six" class="btn" value="6">6</button>
+        <button id="per" class="operator" value="%">%</button><br>
+        <button id="one" class="btn" value="1">1</button>
+        <button id="two" class="btn" value="2">2</button>
+        <button id="three" class="btn" value="3">3</button>
+        <button id="point" class="operator" value=".">.</button><br>
+        <button id="zero" class="btn" value="0">0</button>
+        <button id="equal" value="=">=</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let displayValue = '';
+            let firstOperand = null;
+            let secondOperand = null;
+            let operator = null;
+        
+            const output = document.getElementById('output');
+            const buttons = document.querySelectorAll('button');
+        
+            buttons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const { value } = event.target;
+        
+                    switch (value) {
+                        case 'AC':
+                            displayValue = '';
+                            firstOperand = null;
+                            secondOperand = null;
+                            operator = null;
+                            break;
+                        case '+':
+                        case '-':
+                        case '*':
+                        case '/':
+                        case '%':
+                            firstOperand = parseFloat(displayValue);
+                            operator = value;
+                            displayValue = '';
+                            break;
+                        case '=':
+                            secondOperand = parseFloat(displayValue);
+                            if (operator && firstOperand !== null) {
+                                displayValue = performCalculation(firstOperand, secondOperand, operator).toString();
+                                firstOperand = null;
+                                operator = null;
+                            }
+                            break;
+                        default:
+                            displayValue += value;
+                            break;
+                    }
+        
+                    output.value = displayValue;
+                });
+            });
+        
+            function performCalculation(firstOperand, secondOperand, operator) {
+                switch (operator) {
+                    case '+':
+                        return firstOperand + secondOperand;
+                    case '-':
+                        return firstOperand - secondOperand;
+                    case '*':
+                        return firstOperand * secondOperand;
+                    case '/':
+                        return firstOperand / secondOperand;
+                    case '%':
+                        return firstOperand % secondOperand;
+                    default:
+                        return secondOperand;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
